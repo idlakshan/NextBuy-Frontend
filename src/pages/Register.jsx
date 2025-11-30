@@ -4,7 +4,7 @@ import { FaRegEye } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Axios from "../utils/Axios";
-import summaryApi from "../common/api";
+import summaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 
 const Register = () => {
