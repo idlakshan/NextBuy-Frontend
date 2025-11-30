@@ -9,6 +9,10 @@ const summaryApi = {
     url: "/api/user/login",
     method: "POST",
   },
+  frogotPassword: {
+    url: "/api/user/forgot-password",
+    method: "PUT",
+  },
 };
 
 export default summaryApi;
