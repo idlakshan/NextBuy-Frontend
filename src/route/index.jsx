@@ -5,7 +5,8 @@ import SearchPage from "../pages/SearchPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
-import OtpVerification from "../pages/Otpverification";
+import OtpVerification from "../pages/OtpVerification";
+
 
 const router=createBrowserRouter([
     {

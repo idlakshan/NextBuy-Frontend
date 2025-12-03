@@ -29,7 +29,7 @@ const ForgotPassword = () => {
 
     try {
       const response = await Axios({
-        ...summaryApi.frogotPassword,
+        ...summaryApi.frogot_password,
         data: data,
       });
 
@@ -41,10 +41,13 @@ const ForgotPassword = () => {
 
       if (response.data?.success) {
         toast.success(response.data.message);
+        navigate("/otp-verification", {
+          state: data,
+        });
+
         setData({
           email: "",
         });
-        navigate("/otp-verification");
       }
     } catch (error) {
       console.log(error?.response?.data?.message || error.message);
@@ -69,7 +72,7 @@ const ForgotPassword = () => {
               placeholder="Enter your email"
             />
           </div>
-       
+
           <button
             disabled={!valideValue}
             className={` ${
