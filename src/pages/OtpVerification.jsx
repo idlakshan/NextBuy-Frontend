@@ -75,7 +75,7 @@ const OtpVerification = () => {
 
                       setData(newData);
 
-                      if (value) {
+                      if (value && index < 5) {
                         inputRef.current[index + 1].focus();
                       }
                     }}
