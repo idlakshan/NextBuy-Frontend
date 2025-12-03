@@ -13,10 +13,14 @@ const summaryApi = {
     url: "/api/user/forgot-password",
     method: "PUT",
   },
-  frogot_password_verification:{
-     url: "/api/user/verify-password",
+  frogot_password_verification: {
+    url: "/api/user/verify-password",
     method: "PUT",
-  }
+  },
+  reset_password: {
+    url: "/api/user/reset-password",
+    method: "PUT",
+  },
 };
 
 export default summaryApi;
