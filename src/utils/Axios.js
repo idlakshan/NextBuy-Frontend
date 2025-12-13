@@ -63,7 +63,7 @@ Axios.interceptors.response.use(
 
       try {
         const refreshConfig = {
-          ...(summaryApi.refreshToken || {}),
+          ...(summaryApi.refresh_token || {}),
           withCredentials: true,
         };
 
