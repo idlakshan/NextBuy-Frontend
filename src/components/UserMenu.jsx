@@ -52,7 +52,7 @@ const UserMenu = ({close}) => {
 
         <Divider/>
 
-        <div className='text-sm grid gap-1'>
+           <div className='text-sm grid gap-1'>
         
             <Link onClick={handleClose} to={"/dashboard/myorders"} className='px-2 hover:bg-orange-200 py-1'>My Orders</Link>
 
