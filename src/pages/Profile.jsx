@@ -58,6 +58,8 @@ const Profile = () => {
         dispatch(setUserDetails(userData.data));
       }
     } catch (error) {
+      console.log("error");
+      
       AxiosToastError(error);
     } finally {
       setLoading(false);
