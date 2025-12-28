@@ -3,22 +3,26 @@ import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
-// import { useEffect } from "react";
-// import fetchUserDetails from "./utils/fetchUserDetails";
-// import { useDispatch } from "react-redux";
-// import { setUserDetails } from "./store/slice/userSlice";
+import { useEffect } from "react";
+import fetchUserDetails from "./utils/fetchUserDetails";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "./store/slice/userSlice";
 
 function App() {
-  // const dispatch = useDispatch();
+   const dispatch = useDispatch();
 
-  // const fetchUser = async () => {
-  //   const userData = await fetchUserDetails();
-  //   dispatch(setUserDetails(userData.data));
-  // };
+  useEffect(() => {
+    const restoreUser = async () => {
+      try {
+        const res = await fetchUserDetails();
+        dispatch(setUserDetails(res.data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-  // useEffect(() => {
-  //   fetchUser();
-  // }, []);
+    restoreUser();
+  }, []);
 
   return (
     <>
