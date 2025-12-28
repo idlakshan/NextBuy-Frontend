@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import AxiosToastError from '../utils/AxiosToastError'
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { logout } from '../store/slice/userSlice'
+import isAdmin from '../utils/isAdmin'
 
 const UserMenu = ({close}) => {
    const user = useSelector((state)=> state?.user)
@@ -53,6 +54,31 @@ const UserMenu = ({close}) => {
         <Divider/>
 
            <div className='text-sm grid gap-1'>
+
+                {
+              isAdmin(user.role) && (
+                <Link onClick={handleClose} to={"/dashboard/category"} className='px-2 hover:bg-orange-200 py-1'>Category</Link>
+              )
+            }
+
+            {
+              isAdmin(user.role) && (
+                <Link onClick={handleClose} to={"/dashboard/subcategory"} className='px-2 hover:bg-orange-200 py-1'>Sub Category</Link>
+              )
+            }
+
+            {
+              isAdmin(user.role) && (
+                <Link onClick={handleClose} to={"/dashboard/upload-product"} className='px-2 hover:bg-orange-200 py-1'>Upload Product</Link>
+              )
+            }
+
+            {
+              isAdmin(user.role) && (
+                <Link onClick={handleClose} to={"/dashboard/product"} className='px-2 hover:bg-orange-200 py-1'>Product</Link>
+              )
+            }
+
         
             <Link onClick={handleClose} to={"/dashboard/myorders"} className='px-2 hover:bg-orange-200 py-1'>My Orders</Link>
 
