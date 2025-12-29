@@ -67,7 +67,7 @@ const Profile = () => {
   };
   return (
     <div className="p-4">
-      <div className="w-20 h-20 bg-blue-50 flex items-center justify-center rounded-md overflow-hidden drop-shadow-sm">
+      <div className="w-20 h-20 flex items-center justify-center rounded-md overflow-hidden drop-shadow-sm">
         {user.avatar ? (
           <img alt={user.name} src={user.avatar} className="w-full h-full" />
         ) : (
@@ -90,7 +90,7 @@ const Profile = () => {
           <input
             type="text"
             placeholder="Enter your name"
-            className="p-2 bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
+            className="p-2  outline-none border focus-within:border-primary-200 rounded"
             value={userData.name}
             name="name"
             onChange={handleOnChange}
@@ -103,7 +103,7 @@ const Profile = () => {
             type="email"
             id="email"
             placeholder="Enter your email"
-            className="p-2 bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
+            className="p-2 outline-none border focus-within:border-primary-200 rounded"
             value={userData.email}
             name="email"
             onChange={handleOnChange}
@@ -116,7 +116,7 @@ const Profile = () => {
             type="text"
             id="mobile"
             placeholder="Enter your mobile"
-            className="p-2 bg-blue-50 outline-none border focus-within:border-primary-200 rounded"
+            className="p-2 outline-none border focus-within:border-primary-200 rounded"
             value={userData.mobile}
             name="mobile"
             onChange={handleOnChange}

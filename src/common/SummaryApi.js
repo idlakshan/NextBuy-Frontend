@@ -33,14 +33,34 @@ const summaryApi = {
     url: "/api/user/logout",
     method: "GET",
   },
-  upload_avatar : {
-        url : "/api/user/upload-avatar",
-        method : 'put'
-    },
-    update_userDetails : {
-        url : '/api/user/update-user',
-        method : 'put'
-    },
+  upload_avatar: {
+    url: "/api/user/upload-avatar",
+    method: "PUT",
+  },
+  update_userDetails: {
+    url: "/api/user/update-user",
+    method: "PUT",
+  },
+  add_category: {
+    url: "/api/category/add-category",
+    method: "POST",
+  },
+  upload_image: {
+    url: "/api/file/upload",
+    method: "POST",
+  },
+  get_category: {
+    url: "/api/category/get",
+    method: "GET",
+  },
+  update_category: {
+    url: "/api/category/update",
+    method: "PUT",
+  },
+  delete_category: {
+    url: "/api/category/delete",
+    method: "DELETE",
+  },
 };
 
 export default summaryApi;
