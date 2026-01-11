@@ -1,5 +1,5 @@
-const isAdmin = (s)=>{
-    if(s === 'ADMIN'){
+const isAdmin = (role)=>{
+    if(role === 'ADMIN'){
         return true
     }
 

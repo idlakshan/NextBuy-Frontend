@@ -5,7 +5,7 @@ import NoData from "../components/NoData";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import EditCategory from "../components/EditCategory";
-import CofirmBox from "../components/CofirmBox";
+import ConfirmBox from "../components/ConfirmBox";
 import toast from "react-hot-toast";
 import AxiosToastError from "../utils/AxiosToastError";
 
@@ -18,7 +18,7 @@ const CategoryPage = () => {
     name: "",
     image: "",
   });
-  const [openConfimBoxDelete, setOpenConfirmBoxDelete] = useState(false);
+  const [openConfirmBoxDelete, setOpenConfirmBoxDelete] = useState(false);
   const [deleteCategory, setDeleteCategory] = useState({
     _id: "",
   });
@@ -146,8 +146,8 @@ const CategoryPage = () => {
         />
       )}
 
-      {openConfimBoxDelete && (
-        <CofirmBox
+      {openConfirmBoxDelete && (
+        <ConfirmBox
           close={() => setOpenConfirmBoxDelete(false)}
           cancel={() => setOpenConfirmBoxDelete(false)}
           confirm={handleDeleteCategory}
