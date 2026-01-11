@@ -1,50 +1,25 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import uploadImage from "../utils/uploadImage";
-import Axios from "../utils/Axios";
-import SummaryApi from "../common/SummaryApi";
-import toast from "react-hot-toast";
-import AxiosToastError from "../utils/AxiosToastError";
+import uploadImage from "../utils/UploadImage";
 
-const UploadCategoryModel = ({ close, fetchData }) => {
+const UploadCategoryModel = ({ close }) => {
   const [data, setData] = useState({
     name: "",
     image: "",
   });
-  const [loading, setLoading] = useState(false);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
-    setData((preve) => {
+    setData((prev) => {
       return {
-        ...preve,
+        ...prev,
         [name]: value,
       };
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const response = await Axios({
-        ...SummaryApi.add_category,
-        data: data,
-      });
-      const { data: responseData } = response;
-
-      if (responseData.success) {
-        toast.success(responseData.message);
-        close();
-        fetchData();
-      }
-    } catch (error) {
-      AxiosToastError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleSubmit = async () => {};
 
   const handleUploadCategoryImage = async (e) => {
     const file = e.target.files[0];
@@ -54,14 +29,11 @@ const UploadCategoryModel = ({ close, fetchData }) => {
     }
 
     const response = await uploadImage(file);
-
-    // console.log(response);
-
     const { data: ImageResponse } = response;
 
-    setData((preve) => {
+    setData((prev) => {
       return {
-        ...preve,
+        ...prev,
         image: ImageResponse.data.url,
       };
     });
@@ -85,13 +57,13 @@ const UploadCategoryModel = ({ close, fetchData }) => {
               value={data.name}
               name="name"
               onChange={handleOnChange}
-              className="p-2 border border-black focus-within:border-primary-200 outline-none rounded"
+              className="bg-blue-50 p-2 border border-blue-100 focus-within:border-primary-200 outline-none rounded"
             />
           </div>
           <div className="grid gap-1">
             <p>Image</p>
             <div className="flex gap-4 flex-col lg:flex-row items-center">
-              <div className="border  h-36 w-full lg:w-36 flex items-center justify-center rounded">
+              <div className="border bg-blue-50 h-36 w-full lg:w-36 flex items-center justify-center rounded">
                 {data.image ? (
                   <img
                     alt="category"
@@ -105,19 +77,19 @@ const UploadCategoryModel = ({ close, fetchData }) => {
               <label htmlFor="uploadCategoryImage">
                 <div
                   className={`
-                    px-4 py-2 rounded border font-medium
-                        ${
-                          loading || !data.name
-                            ? "bg-gray-300 cursor-not-allowed"
-                            : "border-primary-200 hover:bg-primary-100 cursor-pointer"
-                        }
-                `}
+                            ${
+                              !data.name
+                                ? "bg-gray-300"
+                                : "border-primary-200 hover:bg-primary-100"
+                            }  
+                                px-4 py-2 rounded cursor-pointer border font-medium
+                            `}
                 >
-                  {loading ? "Uploading..." : "Upload Image"}
+                  Upload Image
                 </div>
 
                 <input
-                  disabled={!data.name || loading}
+                  disabled={!data.name}
                   onChange={handleUploadCategoryImage}
                   type="file"
                   id="uploadCategoryImage"
