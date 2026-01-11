@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import Axios from "../utils/Axios";
+import SummaryApi from "../common/SummaryApi";
+import toast from "react-hot-toast";
+import AxiosToastError from "../utils/AxiosToastError";
 import uploadImage from "../utils/UploadImage";
 
-const UploadSubCategoryModel = ({ close }) => {
+const UploadSubCategoryModel = ({ close, fetchData }) => {
   const [subCategoryData, setSubCategoryData] = useState({
     name: "",
     image: "",
@@ -56,6 +60,32 @@ const UploadSubCategoryModel = ({ close }) => {
     });
   };
 
+  const handleSubmitSubCategory = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await Axios({
+        ...SummaryApi.create_subCategory,
+        data: subCategoryData,
+      });
+
+      const { data: responseData } = response;
+
+     // console.log("responseData", responseData);
+      if (responseData.success) {
+        toast.success(responseData.message);
+        if (close) {
+          close();
+        }
+        if (fetchData) {
+          fetchData();
+        }
+      }
+    } catch (error) {
+      AxiosToastError(error);
+    }
+  };
+
   return (
     <section className="fixed top-0 right-0 bottom-0 left-0 bg-neutral-800 bg-opacity-70 z-50 flex items-center justify-center p-4">
       <div className="w-full max-w-5xl bg-white p-4 rounded">
@@ -65,7 +95,7 @@ const UploadSubCategoryModel = ({ close }) => {
             <IoClose size={25} />
           </button>
         </div>
-        <form className="my-3 grid gap-3">
+        <form className="my-3 grid gap-3" onSubmit={handleSubmitSubCategory}>
           <div className="grid gap-1">
             <label htmlFor="name">Name</label>
             <input
