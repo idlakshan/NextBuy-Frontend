@@ -70,13 +70,21 @@ const summaryApi = {
     url: "/api/subcategory/get-subcategory",
     method: "GET",
   },
-   delete_subCategory: {
+  delete_subCategory: {
     url: "/api/subcategory/delete-subcategory",
     method: "DELETE",
   },
-    update_subCategory: {
+  update_subCategory: {
     url: "/api/subcategory/update-subcategory",
     method: "PUT",
+  },
+  create_product: {
+    url: "/api/product/create",
+    method: "post",
+  },
+  get_product: {
+    url: "/api/product/get",
+    method: "post",
   },
 };
 
