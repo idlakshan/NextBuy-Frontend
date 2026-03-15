@@ -57,13 +57,13 @@ const UploadCategoryModel = ({ close }) => {
               value={data.name}
               name="name"
               onChange={handleOnChange}
-              className="bg-blue-50 p-2 border border-blue-100 focus-within:border-primary-200 outline-none rounded"
+              className="p-2 border focus-within:border-primary-200 outline-none rounded"
             />
           </div>
           <div className="grid gap-1">
             <p>Image</p>
             <div className="flex gap-4 flex-col lg:flex-row items-center">
-              <div className="border bg-blue-50 h-36 w-full lg:w-36 flex items-center justify-center rounded">
+              <div className="border h-36 w-full lg:w-36 flex items-center justify-center rounded">
                 {data.image ? (
                   <img
                     alt="category"

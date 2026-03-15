@@ -79,7 +79,7 @@ const ProductAdmin = () => {
     <section className=''>
         <div className='p-2  bg-white shadow-md flex items-center justify-between gap-4'>
                 <h2 className='font-semibold'>Product</h2>
-                <div className='h-full min-w-24 max-w-56 w-full ml-auto bg-blue-50 px-4 flex items-center gap-3 py-2 rounded  border focus-within:border-primary-200'>
+                <div className='h-full min-w-24 max-w-56 w-full ml-auto px-4 flex items-center gap-3 py-2 rounded  border focus-within:border-primary-200'>
                   <IoSearchOutline size={25}/>
                   <input
                     type='text'
@@ -97,7 +97,7 @@ const ProductAdmin = () => {
         }
 
 
-        <div className='p-4 bg-blue-50'>
+        <div className='p-4 '>
 
 
             <div className='min-h-[55vh]'>
