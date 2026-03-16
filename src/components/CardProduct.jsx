@@ -3,7 +3,7 @@ import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { Link } from "react-router-dom";
 import { valideURLConvert } from "../utils/valideURLConvert";
 import { pricewithDiscount } from "../utils/PriceWithDiscount";
-import AddToCartButton from "./AddToCartButton";
+import ProductCart from "./ProductCart";
 import { GiLeafSwirl } from "react-icons/gi";
 
 const CardProduct = ({ data }) => {
@@ -13,7 +13,7 @@ const CardProduct = ({ data }) => {
   return (
     <Link
       to={url}
-      className="group bg-white w-52  rounded-md shadow-xs hover:shadow-sm transition-all duration-200 border border-green-50 overflow-hidden flex flex-col"
+      className="group bg-white w-52 h-64 rounded-md shadow-xs hover:shadow-md transition-all duration-200 border border-green-50 overflow-hidden flex flex-col"
     >
       <div className="relative h-32 bg-linear-to-br from-green-50 to-lime-50">
         <div className="h-full w-full flex items-center justify-center p-1">
@@ -27,50 +27,51 @@ const CardProduct = ({ data }) => {
         </div>
 
         {data?.isOrganic && (
-          <div className="absolute top-1 left-1 bg-emerald-100 rounded-full p-0.5">
-            <GiLeafSwirl size={10} className="text-emerald-600" />
+          <div className="absolute top-1 left-1 bg-emerald-100 rounded-full p-1">
+            <GiLeafSwirl size={12} className="text-emerald-600" />
           </div>
         )}
 
         {data?.discount > 0 && (
-          <div className="absolute top-1 right-1 bg-orange-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">
+          <div className="absolute top-1 right-1 bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">
             {data.discount}% OFF
           </div>
         )}
       </div>
 
       <div className="flex-1 p-2 flex flex-col justify-between mt-2">
-        <h3 className="font-medium text-gray-800 text-xs line-clamp-2 leading-tight mb-1">
+        <h3 className="font-medium text-gray-800 text-xs line-clamp-2 leading-tight mb-2">
           {data.name}
         </h3>
-        <div className="space-y-1">
+
+        <div className="space-y-2">
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-bold text-green-700 text-sm">
+              <span className="font-bold text-green-700 text-base">
                 {DisplayPriceInRupees(
                   pricewithDiscount(data.price, data.discount),
                 )}
               </span>
               {data?.discount > 0 && (
-                <span className="text-[8px] text-gray-400 line-through block">
+                <span className="text-[10px] text-gray-400 line-through block">
                   {DisplayPriceInRupees(data.price)}
                 </span>
               )}
             </div>
-
+            <span className="text-[10px] text-gray-500 bg-gray-50 px-2 py-1 rounded-full">
+              {data.unit}
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
             {data.stock > 0 ? (
-              <AddToCartButton data={data} />
+              <div className="w-full">
+                <ProductCart data={data} className="scale-100" />
+              </div>
             ) : (
-              <span className="text-[9px] text-red-500 bg-red-50 px-2 py-1 rounded-full">
+              <span className="text-[11px] text-red-500 bg-red-50 px-3 py-2 rounded-lg w-full text-center font-medium">
                 Out of Stock
               </span>
             )}
-          </div>
-
-          <div className="flex items-center justify-between text-[12px]">
-            <span className="text-gray-500 bg-gray-50 px-1.5 py-0.5 rounded-full">
-              {data.unit}
-            </span>
           </div>
         </div>
       </div>

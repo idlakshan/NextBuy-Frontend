@@ -10,7 +10,7 @@ import image1 from "../assets/minute_delivery.png";
 import image2 from "../assets/Best_Prices_Offers.png";
 import image3 from "../assets/Wide_Assortment.png";
 import { pricewithDiscount } from "../utils/PriceWithDiscount";
-import AddToCartButton from "../components/AddToCartButton";
+import ProductCart from "../components/ProductCart";
 import { theme, tailwindClasses } from "../config/theme";
 import { GiLeafSwirl } from "react-icons/gi";
 import { BsTruck, BsInfoCircle } from "react-icons/bs";
@@ -193,7 +193,7 @@ const ProductDisplayPage = () => {
                     Only {data.stock} left in stock
                   </p>
                 )}
-                <AddToCartButton data={data} />
+                <ProductCart data={data} />
               </div>
             ) : (
               <p className="text-red-500 bg-red-50 px-4 py-3 rounded-lg text-center font-medium">

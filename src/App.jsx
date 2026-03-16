@@ -10,6 +10,8 @@ import { setUserDetails } from "./store/slice/userSlice";
 import summaryApi from "./common/SummaryApi";
 import Axios from "./utils/Axios";
 import { setAllCategory, setAllSubCategory } from "./store/slice/productSlice";
+import GlobalProvider from "./provider/GlobalProvider";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +40,7 @@ function App() {
     }
   };
 
-   const fetchSubCategory = async () => {
+  const fetchSubCategory = async () => {
     try {
       const response = await Axios({
         ...summaryApi.get_subCategory,
@@ -61,12 +63,14 @@ function App() {
 
   return (
     <>
-      <Header />
-      <main className="min-h-[78vh]">
-        <Outlet />
-      </main>
-      <Footer />
-      <Toaster />
+      <GlobalProvider>
+        <Header />
+        <main className="min-h-[78vh]">
+          <Outlet />
+        </main>
+        <Footer />
+        <Toaster />
+      </GlobalProvider>
     </>
   );
 }

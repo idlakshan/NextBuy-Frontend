@@ -5,11 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { valideURLConvert } from "../utils/valideURLConvert";
 import CategoryWiseProductDisplay from "../components/CategoryWiseProductDisplay";
 import { tailwindClasses } from "../config/theme";
-
 import { FiArrowRight } from "react-icons/fi";
-import { HiOutlineMenu } from "react-icons/hi";
 import { GiLeafSwirl, GiCarrot, GiAppleSeeds } from "react-icons/gi";
-import { IoLeafSharp } from "react-icons/io5";
 import { LuSprout } from "react-icons/lu";
 import { TbLeaf } from "react-icons/tb";
 
@@ -46,14 +43,6 @@ const Home = () => {
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 md:py-6">
           <div className="relative overflow-hidden rounded-2xl shadow-xl bg-linear-to-r from-green-800 to-emerald-800 group">
-            <div
-              className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 20H50L38 30L43 45L30 35L17 45L22 30L10 20H25L30 5Z' fill='white'/%3E%3C/svg%3E")`,
-                backgroundSize: "40px 40px",
-              }}
-            ></div>
-
             <div className="absolute inset-0 bg-linear-to-r from-green-900/40 via-transparent to-emerald-900/40 mix-blend-multiply"></div>
             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent"></div>
 
@@ -61,13 +50,6 @@ const Home = () => {
               <span className={tailwindClasses.badge.fresh}>
                 <GiLeafSwirl className="inline mr-1" size={12} />
                 Fresh Produce Daily
-              </span>
-            </div>
-
-            <div className="absolute top-4 right-4 z-10">
-              <span className={tailwindClasses.badge.organic}>
-                <IoLeafSharp className="inline mr-1" size={12} />
-                100% Organic
               </span>
             </div>
 
@@ -123,7 +105,7 @@ const Home = () => {
               ))
             : categoryData.map((cat, index) => (
                 <div
-                  key={cat._id + "displayCategory"}
+                  key={index}
                   className="group relative cursor-pointer"
                   onClick={() =>
                     handleRedirectProductListpage(cat._id, cat.name)
