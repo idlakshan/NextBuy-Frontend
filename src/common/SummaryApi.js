@@ -91,7 +91,7 @@ const summaryApi = {
     method: "post",
   },
   get_product_by_category_and_subCategory: {
-    url: "/api/product/get-pruduct-by-category-and-subcategory",
+    url: "/api/product/get-product-by-category-and-subcategory",
     method: "post",
   },
   get_product_details: {
@@ -106,6 +106,10 @@ const summaryApi = {
   delete_product: {
     url: "/api/product/delete-product",
     method: "delete",
+  },
+   search_product: {
+    url: "/api/product/search-product",
+    method: "post",
   },
 };
 

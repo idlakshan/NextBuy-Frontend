@@ -60,15 +60,18 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
     }
   };
 
-  const handleRedirectProductListpage = () => {
-    const subcategory = subCategoryData.find((sub) => {
-      return sub.category.some((c) => c._id === id);
-    });
+  const handleRedirectProductListpage = ()=>{
+      const subcategory = subCategoryData.find(sub =>{
+        const filterData = sub.category.some(c => {
+          return c._id == id
+        })
 
-    return `/${valideURLConvert(name)}-${id}/${valideURLConvert(
-      subcategory?.name || "subcategory",
-    )}-${subcategory?._id || ""}`;
-  };
+        return filterData ? true : null
+      })
+      const url = `/${valideURLConvert(name)}-${id}/${valideURLConvert(subcategory?.name)}-${subcategory?._id}`
+
+      return url
+  }
 
   const redirectURL = handleRedirectProductListpage();
 

@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import UserMenu from "./UserMenu";
 import { GiLeafSwirl } from "react-icons/gi";
-import { TbLeaf } from "react-icons/tb";
 import { theme, tailwindClasses } from "../config/theme";
 
 const Header = () => {
