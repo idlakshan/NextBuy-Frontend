@@ -3,8 +3,8 @@ import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { Link } from "react-router-dom";
 import { valideURLConvert } from "../utils/valideURLConvert";
 import { pricewithDiscount } from "../utils/PriceWithDiscount";
-import ProductCart from "./ProductCart";
 import { GiLeafSwirl } from "react-icons/gi";
+import AddToCartButton from "./AddToCartButton";
 
 const CardProduct = ({ data }) => {
   const url = `/product/${valideURLConvert(data.name)}-${data._id}`;
@@ -65,7 +65,7 @@ const CardProduct = ({ data }) => {
           <div className="flex items-center justify-between">
             {data.stock > 0 ? (
               <div className="w-full">
-                <ProductCart data={data} className="scale-100" />
+                <AddToCartButton data={data} className="scale-100" />
               </div>
             ) : (
               <span className="text-[11px] text-red-500 bg-red-50 px-3 py-2 rounded-lg w-full text-center font-medium">

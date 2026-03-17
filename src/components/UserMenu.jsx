@@ -9,6 +9,7 @@ import AxiosToastError from '../utils/AxiosToastError'
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { logout } from '../store/slice/userSlice'
 import isAdmin from '../utils/isAdmin'
+import { clearCart } from '../store/slice/cartProductSlice'
 
 const UserMenu = ({close}) => {
    const user = useSelector((state)=> state?.user)
@@ -26,6 +27,7 @@ const UserMenu = ({close}) => {
               close()
             }
             dispatch(logout())
+            dispatch(clearCart());
             localStorage.clear()
             toast.success(response.data.message)
             navigate("/")

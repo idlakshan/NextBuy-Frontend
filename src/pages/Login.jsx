@@ -14,6 +14,7 @@ import { GiLeafSwirl } from "react-icons/gi";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { RiShoppingCart2Line } from "react-icons/ri";
+import { fetchCartItems } from "../store/slice/cartProductSlice";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -71,6 +72,7 @@ const Login = () => {
           email: "",
           password: "",
         });
+        dispatch(fetchCartItems());
         navigate("/");
       }
     } catch (error) {

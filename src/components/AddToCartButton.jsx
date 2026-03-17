@@ -8,7 +8,7 @@ import {
   addToCart,
 } from "../store/slice/cartProductSlice";
 
-const ProductCart = ({ data, className = "" }) => {
+const AddToCartButton = ({ data, className = "" }) => {
   const dispatch = useDispatch();
 
   const cartItem = useSelector((state) => state.cartItem.cart);
@@ -21,6 +21,8 @@ const ProductCart = ({ data, className = "" }) => {
   const qty = cartItemDetails?.quantity || 0;
 
   const handleAddToCart = (e) => {
+    console.log("Click");
+    
     e.preventDefault();
     e.stopPropagation();
 
@@ -116,4 +118,4 @@ const ProductCart = ({ data, className = "" }) => {
   );
 };
 
-export default ProductCart;
+export default AddToCartButton;

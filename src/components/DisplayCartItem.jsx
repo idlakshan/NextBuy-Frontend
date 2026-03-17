@@ -9,14 +9,17 @@ import toast from "react-hot-toast";
 import { theme, tailwindClasses } from "../config/theme";
 import { BsTruck } from "react-icons/bs";
 import { GiLeafSwirl } from "react-icons/gi";
-import ProductCart from "./ProductCart";
 import { BsBasket } from "react-icons/bs";
+import AddToCartButton from "./AddToCartButton";
 
 const DisplayCartItem = ({ close, isOpen }) => {
   const cartItem = useSelector((state) => state.cartItem.cart);
   const cartSummary = useSelector((state) => state.cartItem.summary);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  const FREE_DELIVERY_THRESHOLD = 20000;
+  const deliveryCharge = cartSummary.totalPrice < FREE_DELIVERY_THRESHOLD ? 350 : 0; 
 
   const redirectToCheckoutPage = () => {
     if (user?._id) {
@@ -30,7 +33,8 @@ const DisplayCartItem = ({ close, isOpen }) => {
   };
 
   const savings = cartSummary.notDiscountTotalPrice - cartSummary.totalPrice;
-
+  const amountForFreeDelivery = FREE_DELIVERY_THRESHOLD - cartSummary.totalPrice;
+  
   return (
     <>
       <div
@@ -131,7 +135,7 @@ const DisplayCartItem = ({ close, isOpen }) => {
                   </div>
 
                   <div className="mt-3 border-t border-green-50 pt-3">
-                    <ProductCart data={item?.productId} />
+                    <AddToCartButton data={item?.productId} />
                   </div>
                 </div>
               ))}
@@ -164,7 +168,6 @@ const DisplayCartItem = ({ close, isOpen }) => {
           )}
         </div>
 
-
         {cartItem && cartItem.length > 0 && (
           <div className="sticky bottom-0 bg-white border-t border-green-100 p-4">
             <div className="space-y-2 mb-4">
@@ -186,14 +189,23 @@ const DisplayCartItem = ({ close, isOpen }) => {
 
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Delivery</span>
-                <span className="text-green-600 font-medium">Free</span>
+                {deliveryCharge === 0 ? (
+                  <span className="text-green-600 font-medium flex items-center gap-1">
+                    <BsTruck size={12} />
+                    Free
+                  </span>
+                ) : (
+                  <span className="text-orange-600 font-medium">
+                    {DisplayPriceInRupees(deliveryCharge)}
+                  </span>
+                )}
               </div>
 
               <div className="border-t border-green-100 my-2 pt-2">
                 <div className="flex justify-between">
                   <span className="font-semibold text-gray-800">Total</span>
                   <span className="font-bold text-lg text-green-700">
-                    {DisplayPriceInRupees(cartSummary.totalPrice)}
+                    {DisplayPriceInRupees(cartSummary.totalPrice + deliveryCharge)}
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">
@@ -202,9 +214,19 @@ const DisplayCartItem = ({ close, isOpen }) => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-gray-500 bg-green-50 p-2 rounded-lg mb-3">
-              <BsTruck size={14} className="text-green-600" />
-              <span>Free delivery on orders above LKR 499</span>
+            <div className={`flex items-center gap-2 text-xs p-2 rounded-lg mb-3 ${
+              deliveryCharge === 0 
+                ? 'bg-green-50 text-green-600' 
+                : 'bg-orange-50 text-orange-600'
+            }`}>
+              <BsTruck size={14} />
+              {deliveryCharge === 0 ? (
+                <span>You have qualified for free delivery!</span>
+              ) : (
+                <span>
+                  Add {DisplayPriceInRupees(amountForFreeDelivery)} more for free delivery
+                </span>
+              )}
             </div>
 
             <button

@@ -158,6 +158,6 @@ const cartProductSlice = createSlice({
   }
 });
 
-;
+
 export const { handleAddItemCart, clearCart } = cartProductSlice.actions;
 export default cartProductSlice.reducer;
