@@ -1,4 +1,3 @@
-// store/slice/cartProductSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "../../utils/Axios";
 import SummaryApi from "../../common/SummaryApi";
