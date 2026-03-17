@@ -103,12 +103,11 @@ const DisplayCartItem = ({ close, isOpen }) => {
                   key={item?._id + "cartItemDisplay"}
                   className="bg-white border border-green-50 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow relative group"
                 >
-                  {/* Delete button - visible on hover or always visible on mobile */}
                   <button
                     onClick={(e) =>
                       handleRemoveItem(e, item._id, item?.productId?.name)
                     }
-                    className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600 z-10 md:opacity-0 md:group-hover:opacity-100 opacity-100 md:opacity-0"
+                    className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600 z-10 md:group-hover:opacity-100 opacity-100 md:opacity-0"
                     title="Remove item"
                   >
                     <FiTrash2 size={14} />
@@ -128,7 +127,6 @@ const DisplayCartItem = ({ close, isOpen }) => {
                         <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-1 pr-6">
                           {item?.productId?.name}
                         </h3>
-                        {/* Mobile delete button */}
                         <button
                           onClick={(e) =>
                             handleRemoveItem(e, item._id, item?.productId?.name)

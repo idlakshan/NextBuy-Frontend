@@ -250,7 +250,7 @@ const Header = () => {
                   <span
                     className={`absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center ${theme.animations.bounce}`}
                   >
-                    {cartSummary.count}
+                   {cartSummary.items.length}
                   </span>
                   <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-[8px] px-2 py-1 rounded-full whitespace-nowrap">
                     {DisplayPriceInRupees(cartSummary.total)}
