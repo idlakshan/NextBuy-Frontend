@@ -46,6 +46,6 @@ const addressSlice = createSlice({
   }
 });
 
-export const selectAddresses = (state) => state.address.addressList;
+
 export const { handleAddAddress } = addressSlice.actions;
 export default addressSlice.reducer;
