@@ -1,19 +1,52 @@
-import { createSlice } from "@reduxjs/toolkit";
+// store/slice/orderSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import Axios from '../../utils/Axios';
+import SummaryApi from '../../common/SummaryApi';
 
-const initialValue = {
-    order : []
-}
+export const fetchOrders = createAsyncThunk(
+  'order/fetchAll',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await Axios(SummaryApi.getOrderItems);
+      if (response.data.success) {
+        return response.data.data;
+      }
+      return rejectWithValue(response.data.message);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const orderSlice = createSlice({
-    name : 'order',
-    initialState : initialValue,
-    reducers : {
-        setOrder : (state,action)=>{
-            state.order = [...action.payload]
-        }
+  name: 'order',
+  initialState: {
+    order: [],
+    loading: false,
+    error: null
+  },
+  reducers: {
+    setOrder: (state, action) => {
+      state.order = action.payload;
     }
-})
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        state.order = action.payload;
+      })
+      .addCase(fetchOrders.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  }
+});
 
-export const {setOrder } = orderSlice.actions
-
-export default orderSlice.reducer
+export const selectOrders = (state) => state.order.order;
+export const { setOrder } = orderSlice.actions;
+export default orderSlice.reducer;

@@ -1,6 +1,5 @@
 import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../provider/GlobalProvider";
 import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { FaCaretRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -14,8 +13,8 @@ import ProductCart from "./ProductCart";
 import { BsBasket } from "react-icons/bs";
 
 const DisplayCartItem = ({ close, isOpen }) => {
-  const { notDiscountTotalPrice, totalPrice, totalQty } = useGlobalContext();
   const cartItem = useSelector((state) => state.cartItem.cart);
+  const cartSummary = useSelector((state) => state.cartItem.summary);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ const DisplayCartItem = ({ close, isOpen }) => {
     toast("Please Login");
   };
 
-  const savings = notDiscountTotalPrice - totalPrice;
+  const savings = cartSummary.notDiscountTotalPrice - cartSummary.totalPrice;
 
   return (
     <>
@@ -172,7 +171,7 @@ const DisplayCartItem = ({ close, isOpen }) => {
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Subtotal</span>
                 <span className="font-medium text-gray-800">
-                  {DisplayPriceInRupees(notDiscountTotalPrice)}
+                  {DisplayPriceInRupees(cartSummary.notDiscountTotalPrice)}
                 </span>
               </div>
 
@@ -194,15 +193,14 @@ const DisplayCartItem = ({ close, isOpen }) => {
                 <div className="flex justify-between">
                   <span className="font-semibold text-gray-800">Total</span>
                   <span className="font-bold text-lg text-green-700">
-                    {DisplayPriceInRupees(totalPrice)}
+                    {DisplayPriceInRupees(cartSummary.totalPrice)}
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">
-                  Total Quantity: {totalQty} {totalQty === 1 ? "item" : "items"}
+                  Total Quantity: {cartSummary.totalQty} {cartSummary.totalQty === 1 ? "item" : "items"}
                 </p>
               </div>
             </div>
-
 
             <div className="flex items-center gap-2 text-xs text-gray-500 bg-green-50 p-2 rounded-lg mb-3">
               <BsTruck size={14} className="text-green-600" />
