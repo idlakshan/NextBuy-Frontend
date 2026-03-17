@@ -13,7 +13,7 @@ const CardProduct = ({ data }) => {
   return (
     <Link
       to={url}
-      className="group bg-white w-52 h-64 rounded-md shadow-xs hover:shadow-md transition-all duration-200 border border-green-50 overflow-hidden flex flex-col"
+      className="group bg-white w-64 h-72 rounded-md shadow-xs hover:shadow-md transition-all duration-200 border border-green-50 overflow-hidden flex flex-col"
     >
       <div className="relative h-32 bg-linear-to-br from-green-50 to-lime-50">
         <div className="h-full w-full flex items-center justify-center p-1">

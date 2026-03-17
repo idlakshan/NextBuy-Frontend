@@ -27,6 +27,17 @@ export const theme = {
       red: "#ef4444",
       purple: "#a855f7",
     },
+    gray: {
+      50: "#f9fafb",
+      100: "#f3f4f6",
+      200: "#e5e7eb",
+      300: "#d1d5db",
+      400: "#9ca3af",
+      500: "#6b7280",
+      600: "#4b5563",
+      700: "#374151",
+      800: "#1f2937",
+    },
     gradient: {
       primary: "from-green-500 to-lime-500",
       primaryHover: "from-green-600 to-lime-600",
@@ -72,6 +83,31 @@ export const tailwindClasses = {
     floating: `bg-linear-to-r ${theme.colors.gradient.primary} text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110`,
     primary: `bg-linear-to-r ${theme.colors.gradient.primary} text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all`,
     secondary: `bg-linear-to-r ${theme.colors.gradient.secondary} text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all`,
+
+    cart: {
+      container:
+        "flex items-center justify-between bg-white rounded-lg border-2 border-green-200 p-1 shadow-sm hover:shadow-md transition-shadow",
+      quantityBtn:
+        "w-8 h-8 rounded-md bg-green-50 text-green-600 hover:bg-green-100 hover:text-green-700 flex items-center justify-center transition-all duration-200",
+      quantityBtnDisabled: "bg-gray-100 text-gray-400 cursor-not-allowed",
+      quantityBtnActive:
+        "bg-green-50 text-green-600 hover:bg-green-100 hover:text-green-700",
+
+      quantityDisplay: {
+        container:
+          "w-full flex items-center justify-center gap-1 cursor-pointer group",
+        value:
+          "text-sm font-semibold text-gray-800 bg-green-50 rounded-md py-1.5 px-3 group-hover:bg-green-100 transition-colors",
+        editIcon:
+          "text-green-500 opacity-0 group-hover:opacity-100 transition-opacity",
+      },
+
+      input:
+        "w-full text-center text-sm font-semibold text-gray-800 bg-green-50 border-2 border-green-300 rounded-md py-1.5 px-2 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent",
+      outOfStock:
+        "text-[10px] text-red-500 bg-red-50 px-3 py-1.5 rounded-full font-medium",
+      addToCart: `bg-linear-to-r ${theme.colors.gradient.primary} text-white px-6 py-2 text-sm whitespace-nowrap w-full rounded-lg shadow-sm hover:shadow-md transition-all`,
+    },
   },
 
   card: {
