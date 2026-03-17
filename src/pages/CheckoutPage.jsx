@@ -10,7 +10,7 @@ import {
   FaLeaf,
 } from "react-icons/fa";
 import { MdDiscount } from "react-icons/md";
-import Address from "./Address";
+import CheckoutAddress from "../components/CheckoutAddress";
 
 const CheckoutPage = () => {
   const cartSummary = useSelector((state) => state.cartItem.summary);
@@ -36,7 +36,7 @@ const CheckoutPage = () => {
 
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1 space-y-6">
-            <Address
+            <CheckoutAddress
               selectedAddress={selectedAddress}
               setSelectedAddress={setSelectedAddress}
             />
