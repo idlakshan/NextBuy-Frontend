@@ -17,8 +17,6 @@ const CheckoutPage = () => {
   const [selectedAddress, setSelectedAddress] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("online");
 
-  console.log(cartSummary);
-
   const FREE_DELIVERY_THRESHOLD = 20000;
   const deliveryCharge =
     cartSummary?.totalPrice < FREE_DELIVERY_THRESHOLD ? 350 : 0;
@@ -26,7 +24,7 @@ const CheckoutPage = () => {
     (cartSummary?.notDiscountTotalPrice || 0) - (cartSummary?.totalPrice || 0);
 
   return (
-    <div className="min-h-screen via-lime-50/50 to-yellow-50/50">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1
@@ -59,7 +57,7 @@ const CheckoutPage = () => {
                     <span>Subtotal</span>
                     <span>
                       {DisplayPriceInRupees(
-                        cartSummary?.notDiscountTotalPrice || 1250,
+                        cartSummary?.notDiscountTotalPrice || 0,
                       )}
                     </span>
                   </div>
@@ -90,7 +88,7 @@ const CheckoutPage = () => {
 
                   <div className="flex justify-between text-sm text-gray-500">
                     <span>Total Qty</span>
-                    <span>{cartSummary?.totalQty || 4} items</span>
+                    <span>{cartSummary?.totalQty || 0} items</span>
                   </div>
                 </div>
 
@@ -104,7 +102,7 @@ const CheckoutPage = () => {
                         className={`text-2xl font-bold ${theme.colors.solid.sectionTitle}`}
                       >
                         {DisplayPriceInRupees(
-                          (cartSummary?.totalPrice || 1150) + deliveryCharge,
+                          (cartSummary?.totalPrice || 0) + deliveryCharge,
                         )}
                       </span>
                       <p className="text-xs text-gray-400 mt-1">
@@ -174,7 +172,7 @@ const CheckoutPage = () => {
                 >
                   Place Order •{" "}
                   {DisplayPriceInRupees(
-                    (cartSummary?.totalPrice || 1150) + deliveryCharge,
+                    (cartSummary?.totalPrice || 0) + deliveryCharge,
                   )}
                 </button>
 

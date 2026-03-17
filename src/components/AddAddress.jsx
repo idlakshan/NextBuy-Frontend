@@ -1,11 +1,16 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { tailwindClasses, theme } from "../config/theme";
 import toast from "react-hot-toast";
+import Axios from "../utils/Axios";
+import SummaryApi from "../common/SummaryApi";
+import AxiosToastError from "../utils/AxiosToastError";
+import { fetchAddresses } from "../store/slice/addressSlice";
 
-const AddAddress = ({ close, onAddressAdded }) => {
+const AddAddress = ({ close }) => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -13,16 +18,31 @@ const AddAddress = ({ close, onAddressAdded }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const newAddress = {
-      id: 2,
-      ...data,
-    };
+  const onSubmit = async (data) => {
+    try {
+      const response = await Axios({
+        ...SummaryApi.createAddress,
+        data: {
+          address_line: data.address_line,
+          city: data.city,
+          state: data.state,
+          country: data.country,
+          pincode: data.pincode,
+          mobile: data.mobile,
+        },
+      });
 
-    onAddressAdded(newAddress);
-    toast.success("Address added successfully!");
-    reset();
-    close();
+      const { data: responseData } = response;
+
+      if (responseData.success) {
+        toast.success(responseData.message);
+        dispatch(fetchAddresses());
+        reset();
+        if (close) close();
+      }
+    } catch (error) {
+      AxiosToastError(error);
+    }
   };
 
   return (
@@ -49,7 +69,6 @@ const AddAddress = ({ close, onAddressAdded }) => {
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
           <div className="space-y-2">
             <label
