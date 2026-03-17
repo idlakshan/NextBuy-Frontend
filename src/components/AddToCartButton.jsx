@@ -175,7 +175,7 @@ const AddToCartButton = ({ data, className = "" }) => {
                   {displayQty} {data?.unit || "kg"}
                 </span>
                 <FaPencilAlt
-                  size={10}
+                  size={15}
                   className={
                     tailwindClasses.button.cart.quantityDisplay.editIcon
                   }

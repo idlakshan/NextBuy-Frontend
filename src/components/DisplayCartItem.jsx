@@ -1,8 +1,9 @@
 import { IoClose } from "react-icons/io5";
+import { FiTrash2 } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { FaCaretRight } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { pricewithDiscount } from "../utils/PriceWithDiscount";
 import imageEmpty from "../assets/empty_cart.webp";
 import toast from "react-hot-toast";
@@ -11,15 +12,18 @@ import { BsTruck } from "react-icons/bs";
 import { GiLeafSwirl } from "react-icons/gi";
 import { BsBasket } from "react-icons/bs";
 import AddToCartButton from "./AddToCartButton";
+import { deleteCartItem } from "../store/slice/cartProductSlice";
 
 const DisplayCartItem = ({ close, isOpen }) => {
+  const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cartItem.cart);
   const cartSummary = useSelector((state) => state.cartItem.summary);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const FREE_DELIVERY_THRESHOLD = 20000;
-  const deliveryCharge = cartSummary.totalPrice < FREE_DELIVERY_THRESHOLD ? 350 : 0; 
+  const deliveryCharge =
+    cartSummary.totalPrice < FREE_DELIVERY_THRESHOLD ? 350 : 0;
 
   const redirectToCheckoutPage = () => {
     if (user?._id) {
@@ -32,9 +36,16 @@ const DisplayCartItem = ({ close, isOpen }) => {
     toast("Please Login");
   };
 
+  const handleRemoveItem = (e, itemId) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(deleteCartItem(itemId));
+  };
+
   const savings = cartSummary.notDiscountTotalPrice - cartSummary.totalPrice;
-  const amountForFreeDelivery = FREE_DELIVERY_THRESHOLD - cartSummary.totalPrice;
-  
+  const amountForFreeDelivery =
+    FREE_DELIVERY_THRESHOLD - cartSummary.totalPrice;
+
   return (
     <>
       <div
@@ -90,8 +101,19 @@ const DisplayCartItem = ({ close, isOpen }) => {
               {cartItem.map((item) => (
                 <div
                   key={item?._id + "cartItemDisplay"}
-                  className="bg-white border border-green-50 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow"
+                  className="bg-white border border-green-50 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow relative group"
                 >
+                  {/* Delete button - visible on hover or always visible on mobile */}
+                  <button
+                    onClick={(e) =>
+                      handleRemoveItem(e, item._id, item?.productId?.name)
+                    }
+                    className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600 z-10 md:opacity-0 md:group-hover:opacity-100 opacity-100 md:opacity-0"
+                    title="Remove item"
+                  >
+                    <FiTrash2 size={14} />
+                  </button>
+
                   <div className="flex gap-3">
                     <div className="w-20 h-20 bg-green-50 rounded-lg p-2 shrink-0">
                       <img
@@ -102,9 +124,21 @@ const DisplayCartItem = ({ close, isOpen }) => {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-1">
-                        {item?.productId?.name}
-                      </h3>
+                      <div className="flex justify-between items-start">
+                        <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-1 pr-6">
+                          {item?.productId?.name}
+                        </h3>
+                        {/* Mobile delete button */}
+                        <button
+                          onClick={(e) =>
+                            handleRemoveItem(e, item._id, item?.productId?.name)
+                          }
+                          className="md:hidden text-red-500 hover:text-red-600 p-1"
+                          title="Remove item"
+                        >
+                          <FiTrash2 size={16} />
+                        </button>
+                      </div>
 
                       <p className="text-xs text-gray-400 mb-2">
                         {item?.productId?.unit}
@@ -205,26 +239,32 @@ const DisplayCartItem = ({ close, isOpen }) => {
                 <div className="flex justify-between">
                   <span className="font-semibold text-gray-800">Total</span>
                   <span className="font-bold text-lg text-green-700">
-                    {DisplayPriceInRupees(cartSummary.totalPrice + deliveryCharge)}
+                    {DisplayPriceInRupees(
+                      cartSummary.totalPrice + deliveryCharge,
+                    )}
                   </span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">
-                  Total Quantity: {cartSummary.totalQty} {cartSummary.totalQty === 1 ? "item" : "items"}
+                  Total Quantity: {cartSummary.totalQty}{" "}
+                  {cartSummary.totalQty === 1 ? "item" : "items"}
                 </p>
               </div>
             </div>
 
-            <div className={`flex items-center gap-2 text-xs p-2 rounded-lg mb-3 ${
-              deliveryCharge === 0 
-                ? 'bg-green-50 text-green-600' 
-                : 'bg-orange-50 text-orange-600'
-            }`}>
+            <div
+              className={`flex items-center gap-2 text-xs p-2 rounded-lg mb-3 ${
+                deliveryCharge === 0
+                  ? "bg-green-50 text-green-600"
+                  : "bg-orange-50 text-orange-600"
+              }`}
+            >
               <BsTruck size={14} />
               {deliveryCharge === 0 ? (
                 <span>You have qualified for free delivery!</span>
               ) : (
                 <span>
-                  Add {DisplayPriceInRupees(amountForFreeDelivery)} more for free delivery
+                  Add {DisplayPriceInRupees(amountForFreeDelivery)} more for
+                  free delivery
                 </span>
               )}
             </div>

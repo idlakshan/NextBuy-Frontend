@@ -12,13 +12,13 @@ import { GiLeafSwirl } from "react-icons/gi";
 import { theme, tailwindClasses } from "../config/theme";
 import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { pricewithDiscount } from "../utils/PriceWithDiscount";
-import DisplayCartItem from "./DisplayCartItem"; // Import the cart drawer
+import DisplayCartItem from "./DisplayCartItem"; 
 
 const Header = () => {
   const [isMobile] = useMobile();
   const location = useLocation();
   const [openUserMenu, setOpenUserMenu] = useState(false);
-  const [openCart, setOpenCart] = useState(false); // State for cart drawer
+  const [openCart, setOpenCart] = useState(false);
   const [cartSummary, setCartSummary] = useState({
     count: 0,
     total: 0,
@@ -77,12 +77,15 @@ const Header = () => {
   };
 
   const handleCartClick = () => {
-    setOpenCart(true); // Open cart drawer instead of navigating
+    setOpenCart(true); 
   };
 
   const handleCloseCart = () => {
     setOpenCart(false);
   };
+
+  //console.log(cartSummary);
+  
 
   return (
     <>
@@ -185,7 +188,6 @@ const Header = () => {
                   </button>
                 )}
 
-                {/* Cart Button - Opens Drawer */}
                 <button
                   onClick={handleCartClick}
                   className={`relative flex items-center gap-3 ${tailwindClasses.button.primary} p-2 pr-4 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105 group`}
@@ -198,7 +200,7 @@ const Header = () => {
 
                     {cartSummary.count > 0 && (
                       <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center animate-bounce">
-                        {cartSummary.count}
+                        {cartSummary.items.length}
                       </span>
                     )}
                   </div>
