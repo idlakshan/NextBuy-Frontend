@@ -75,8 +75,6 @@ const CheckoutPage = () => {
 
       if (responseData.success) {
         toast.dismiss(loadingToast);
-        toast.success(responseData.message || "Order placed successfully!");
-
         await dispatch(fetchCartItems());
         await dispatch(fetchOrders());
 
@@ -84,7 +82,6 @@ const CheckoutPage = () => {
           state: {
             type: "cod",
             orderId: responseData.data?.orderId,
-            message: "Your order has been placed successfully!",
           },
         });
       }
