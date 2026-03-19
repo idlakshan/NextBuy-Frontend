@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import uploadImage from "../utils/UploadImage";
 import Loading from "../components/Loading";
 import ViewImage from "../components/ViewImage";
 import { MdDelete } from "react-icons/md";
@@ -11,6 +10,7 @@ import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import AxiosToastError from "../utils/AxiosToastError";
 import successAlert from "../utils/SuccessAlert";
+import uploadImage from "../utils/uploadImage";
 
 const EditProductAdmin = ({ close, data: propsData, fetchProductData }) => {
   const [data, setData] = useState({
