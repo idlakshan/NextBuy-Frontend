@@ -47,7 +47,7 @@ const CheckoutPage = () => {
     return null;
   }
 
- const handleCashOnDelivery = async () => {
+  const handleCashOnDelivery = async () => {
     if (!selectedAddressData?._id) {
       toast.error("Please select a delivery address");
       return;
@@ -67,8 +67,6 @@ const CheckoutPage = () => {
         data: {
           list_items: cartItems,
           addressId: selectedAddressData._id,
-          subTotalAmt: cartSummary?.totalPrice || 0,
-          totalAmt: (cartSummary?.totalPrice || 0) + deliveryCharge, // 👈 FIXED: Add delivery charge
           deliveryCharge: deliveryCharge,
         },
       });
@@ -85,7 +83,7 @@ const CheckoutPage = () => {
         navigate("/success", {
           state: {
             type: "cod",
-            orderId: responseData.data?.orderId || responseData.orderId, // 👈 Safe access
+            orderId: responseData.data?.orderId,
             message: "Your order has been placed successfully!",
           },
         });
@@ -98,8 +96,50 @@ const CheckoutPage = () => {
     }
   };
 
-  const handleOnlinePayment = () => {
-    toast.error("Online payment ");
+  const handleOnlinePayment = async () => {
+    if (!selectedAddressData?._id) {
+      toast.error("Please select a delivery address");
+      return;
+    }
+
+    if (cartItems?.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+
+    setLoading(true);
+    const loadingToast = toast.loading("Redirecting to payment...");
+
+    try {
+      const response = await Axios({
+        ...SummaryApi.payment_url,
+        data: {
+          list_items: cartItems,
+          addressId: selectedAddressData._id,
+          deliveryCharge: deliveryCharge,
+        },
+      });
+
+      const { data: responseData } = response;
+      
+      toast.dismiss(loadingToast);
+      
+      // Store order ID in session storage for verification after redirect
+      if (responseData.orderId) {
+        sessionStorage.setItem('pendingOrderId', responseData.orderId);
+        sessionStorage.setItem('pendingSessionId', 'waiting');
+      }
+      
+      // Redirect to Stripe
+      window.location.href = responseData.url;
+
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      console.log("Error ", error);
+      AxiosToastError(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handlePlaceOrder = () => {
@@ -160,7 +200,10 @@ const CheckoutPage = () => {
                     </div>
                     <div className="text-sm font-medium text-green-600">
                       {DisplayPriceInRupees(
-                        item.productId?.price * item.quantity,
+                        pricewithDiscount(
+                          item.productId?.price,
+                          item.productId?.discount
+                        ) * item.quantity
                       )}
                     </div>
                   </div>
@@ -306,7 +349,7 @@ const CheckoutPage = () => {
                   {loading ? (
                     <div className="flex items-center justify-center gap-2">
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Placing Order...</span>
+                      <span>Processing...</span>
                     </div>
                   ) : (
                     `Place Order • ${DisplayPriceInRupees(
@@ -325,6 +368,12 @@ const CheckoutPage = () => {
       </div>
     </div>
   );
+};
+
+// Helper function for price calculation
+const pricewithDiscount = (price, discount = 0) => {
+  const discountAmount = (price * discount) / 100;
+  return price - discountAmount;
 };
 
 export default CheckoutPage;

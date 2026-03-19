@@ -154,7 +154,16 @@ const summaryApi = {
     getOrderItems : {
         url : '/api/order/order-list',
         method : 'get'
-    }
+    },
+  verifyPayment: {
+    method: 'post',
+    url: '/api/order/verify-payment'
+  },
+  
+  order_list: {
+    method: 'get',
+    url: '/api/order/order-list'
+  },
 };
 
 export default summaryApi;
