@@ -1,4 +1,3 @@
-// store/slice/orderSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Axios from '../../utils/Axios';
 import SummaryApi from '../../common/SummaryApi';
@@ -7,11 +6,10 @@ export const fetchOrders = createAsyncThunk(
   'order/fetchAll',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await Axios(SummaryApi.getOrderItems);
-      if (response.data.success) {
-        return response.data.data;
-      }
-      return rejectWithValue(response.data.message);
+      const response = await Axios({
+        ...SummaryApi.getOrderItems
+      });
+       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
