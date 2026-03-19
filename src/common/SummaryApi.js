@@ -1,4 +1,6 @@
-export const BaseURL = "https://nextbuy-backend-lrt8.onrender.com"
+export const BaseURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+
+
 //"http://localhost:8080";
 
 const summaryApi = {
