@@ -118,18 +118,17 @@ const CheckoutPage = () => {
       });
 
       const { data: responseData } = response;
-      
+
       toast.dismiss(loadingToast);
-      
+
       // Store order ID in session storage for verification after redirect
       if (responseData.orderId) {
-        sessionStorage.setItem('pendingOrderId', responseData.orderId);
-        sessionStorage.setItem('pendingSessionId', 'waiting');
+        sessionStorage.setItem("pendingOrderId", responseData.orderId);
+        sessionStorage.setItem("pendingSessionId", "waiting");
       }
-      
+
       // Redirect to Stripe
       window.location.href = responseData.url;
-
     } catch (error) {
       toast.dismiss(loadingToast);
       console.log("Error ", error);
@@ -199,8 +198,8 @@ const CheckoutPage = () => {
                       {DisplayPriceInRupees(
                         pricewithDiscount(
                           item.productId?.price,
-                          item.productId?.discount
-                        ) * item.quantity
+                          item.productId?.discount,
+                        ) * item.quantity,
                       )}
                     </div>
                   </div>
@@ -217,7 +216,10 @@ const CheckoutPage = () => {
                   Order Summary
                 </h2>
               </div>
-
+              <div className="flex items-center justify-between text-xs bg-gray-50 p-2 rounded-lg mt-3">
+                <span className="text-gray-600">💳 Min. online payment</span>
+                <span className="font-semibold text-green-600">160.00</span>
+              </div>
               <div className="p-6 space-y-4">
                 <div className="space-y-3">
                   <div className="flex justify-between text-gray-600">
