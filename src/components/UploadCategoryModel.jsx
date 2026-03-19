@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import uploadImage from "../utils/UploadImage";
+import uploadImage from "../utils/uploadImage";
+
 
 const UploadCategoryModel = ({ close }) => {
   const [data, setData] = useState({
