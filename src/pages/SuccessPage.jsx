@@ -21,8 +21,7 @@ const PaymentSuccessPage = () => {
     const verifyPaymentAndSaveOrder = async () => {
       const sessionId = searchParams.get('session_id');
       const orderId = searchParams.get('order_id');
-      
-      // Also check session storage for pending order
+  
       const pendingOrderId = sessionStorage.getItem('pendingOrderId');
       
       const finalOrderId = orderId || pendingOrderId;
@@ -46,12 +45,8 @@ const PaymentSuccessPage = () => {
 
         if (responseData.success) {
           setOrderDetails(responseData.data);
-          
-          // Clear pending order from session storage
           sessionStorage.removeItem('pendingOrderId');
           sessionStorage.removeItem('pendingSessionId');
-          
-          // Refresh cart and orders
           await dispatch(fetchCartItems());
           await dispatch(fetchOrders());
           

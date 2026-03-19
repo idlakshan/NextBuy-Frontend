@@ -80,7 +80,7 @@ const CheckoutPage = () => {
         await dispatch(fetchCartItems());
         await dispatch(fetchOrders());
 
-        navigate("/success", {
+        navigate("/payment-success", {
           state: {
             type: "cod",
             orderId: responseData.data?.orderId,
