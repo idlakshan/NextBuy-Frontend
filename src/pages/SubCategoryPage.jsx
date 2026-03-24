@@ -32,7 +32,7 @@ const SubCategoryPage = () => {
         ...summaryApi.get_subCategory,
       });
       const { data: responseData } = response;
-      console.log(responseData);
+      //console.log(responseData);
 
       if (responseData.success) {
         setData(responseData.data);
@@ -69,7 +69,7 @@ const SubCategoryPage = () => {
     columnHelper.accessor("image", {
       header: "Image",
       cell: ({ row }) => {
-        console.log("row");
+      //  console.log("row");
         return (
           <div className="flex justify-center items-center">
             <img
